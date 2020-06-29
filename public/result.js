@@ -118,9 +118,9 @@ async function renderPage() {
     if (Sess['canAdd'].length == 0) {
         document.getElementById('resultList').innerHTML = '<h2 class="text-center mt-5 pt-5">ว้าาา เสียใจด้วยนะ ไม่เจอเลยสักตัว</h2>'
         document.getElementById('downloadBtn').classList.add('disabled')
-    } else if (Sess['canAdd'].length > 300) {
-        document.getElementById('resultList').innerHTML = '<p class="text-muted text-right mt-3"> กำลังแสดง 50 หมู่เรียนแรก จากทั้งหมด ' + Sess['canAdd'].length + ' หมู่เรียน</p>'
-        Sess['canAdd'].slice(0, 50).forEach(addCard)
+    } else if (Sess['canAdd'].length > 200) {
+        document.getElementById('resultList').innerHTML = '<p class="text-muted text-right mt-3"> กำลังแสดง 200 หมู่เรียนแรก จากทั้งหมด ' + Sess['canAdd'].length + ' หมู่เรียน</p>'
+        Sess['canAdd'].slice(0, 200).forEach(addCard)
         prepareDownload()
     } else {
         document.getElementById('resultList').innerHTML = '<p class="text-muted text-right mt-3">กำลังแสดงทั้งหมด ' + Sess['canAdd'].length + ' หมู่เรียน</p>'
