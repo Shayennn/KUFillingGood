@@ -80,6 +80,16 @@ function createCSV() {
     return csv
 }
 
+function prepareDownload() {
+    const blob = new Blob([createCSV()], {
+        type: 'text/csv'
+    });
+    const blobUrl = URL.createObjectURL(blob);
+    document.getElementById('downloadBtn').classList.remove('disabled')
+    document.getElementById('downloadBtn').href = blobUrl;
+    document.getElementById('downloadBtn').download = 'KUFillingGood.csv';
+}
+
 async function renderPage() {
     if (sessionStorage.getItem('theSession') === null) {
         document.getElementById('resultList').innerHTML = '<h2 class="text-center mt-5 pt-5">กลับไปกรอกข้อมูลวิชาก่อนนะ ^^</h2>'
@@ -105,22 +115,18 @@ async function renderPage() {
     console.log(Sess['canAdd'].length, 'Showing')
 
     var download = '';
-    if (Sess['canAdd'].length == 0)
+    if (Sess['canAdd'].length == 0) {
         document.getElementById('resultList').innerHTML = '<h2 class="text-center mt-5 pt-5">ว้าาา เสียใจด้วยนะ ไม่เจอเลยสักตัว</h2>'
-    else if (Sess['canAdd'].length > 300) {
+        document.getElementById('downloadBtn').classList.add('disabled')
+    } else if (Sess['canAdd'].length > 300) {
         document.getElementById('resultList').innerHTML = '<p class="text-muted text-right mt-3"> กำลังแสดง 50 หมู่เรียนแรก จากทั้งหมด ' + Sess['canAdd'].length + ' หมู่เรียน</p>'
         Sess['canAdd'].slice(0, 50).forEach(addCard)
+        prepareDownload()
     } else {
         document.getElementById('resultList').innerHTML = '<p class="text-muted text-right mt-3">กำลังแสดงทั้งหมด ' + Sess['canAdd'].length + ' หมู่เรียน</p>'
         Sess['canAdd'].forEach(addCard)
+        prepareDownload()
     }
-    const blob = new Blob([createCSV()], {
-        type: 'text/csv'
-    });
-    const blobUrl = URL.createObjectURL(blob);
-    document.getElementById('downloadBtn').classList.remove('disabled')
-    document.getElementById('downloadBtn').href = blobUrl;
-    document.getElementById('downloadBtn').download = 'KUFillingGood.csv';
 }
 
 document.addEventListener("DOMContentLoaded", renderPage);
