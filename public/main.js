@@ -46,6 +46,16 @@ if (DEBUG) {
     // findSubjectData();
 }
 
+function renderMain(){
+    var ss = document.getElementById('subject_section')
+    var sess_sub = sessionStorage.getItem('subjectList')
+    if(sess_sub !== null && ss !== null){
+        ss.value = JSON.parse(sess_sub).join("\n")
+    }
+}
+
+document.addEventListener("DOMContentLoaded", renderMain);
+
 function btnAction() {
     var btn = document.getElementById('thebtn')
     btn.classList.add('disabled')
@@ -116,6 +126,7 @@ function parseSubject() {
         }
     })
     textbox.value = res.sort().join("\n");
+    sessionStorage.setItem('subjectList', JSON.stringify(res));
     Sess['FixedSubject'] = res;
     return res;
 }
