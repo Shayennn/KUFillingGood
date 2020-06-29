@@ -1,0 +1,11 @@
+@media (min-width: 992px) {
+    .seatBox {
+        width: 10rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .seatBox {
+        width: 87%;
+    }
+}
