@@ -52,7 +52,6 @@ function parseFilter() {
 function updateFilter() {
     $('#filterbox').collapse('hide')
     Sess['canAdd'] = []
-    Sess['currentCredit'] = 0
     parseFilter()
     loadBuu()
         .then(loadSubject)
