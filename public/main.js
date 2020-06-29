@@ -298,13 +298,13 @@ function findAllCanReg(GenFilter = false, Credit = false, DepYear = false, Secti
         }
         if (DepYear !== false && DepSpecific  && (sub.property == null || sub.property == 'ALL' || sub.property == '-')) return;
         // console.log(sub.property)
-        if (GenType !== false && sub.type != GenType) return;
         if (Credit !== false && sub.maxCredit != Credit) return;
 
         if (Sess['BuuData'].hasOwnProperty(sub.subjectCode.slice(0, 8))) {
             sub = Object.assign({}, Sess['BuuData'][sub.subjectCode.slice(0, 8)], sub)
             // if (sub.type != 'ภาษากับการสื่อสาร') return;
-        } else if (GenType !== false) {
+            if (GenType !== false && sub.type != GenType) return;
+        }else if (GenType !== false) {
             return;
         }
 
