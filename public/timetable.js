@@ -7,7 +7,7 @@ function findMinMaxTime() {
             if (timearr[1] > maxtime) maxtime = timearr[1]
         })
     })
-    return [mintime - 60, maxtime + 60];
+    return [mintime, maxtime];
 }
 
 function getRandomColor() {
