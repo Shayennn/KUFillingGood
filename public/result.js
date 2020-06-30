@@ -119,6 +119,12 @@ function renderModal(){
         return parseInt(a.subjectCode.slice(0, 8)) * 1000 + parseInt(a.sectionCode) - parseInt(b.subjectCode.slice(0, 8)) * 1000 + parseInt(b.sectionCode)
     })
     FixedSubjectInfo.forEach((sub) => {
+        if (sub.roomNameTh === null) sub.roomNameTh = 'ติดต่อผู้สอน'
+        if (sub.teacherName === null) sub.teacherName = 'ติดต่อหน่วยทะเบียน'
+        if (sub.property === null) sub.property = 'ติดต่อผู้สอน'
+        if (sub.nonProperty === null) sub.nonProperty = 'ติดต่อผู้สอน'
+        if (sub.midternDate === null) sub.midternDate = 'ติดต่อผู้สอน'
+        if (sub.finalDate === null) sub.finalDate = 'ติดต่อผู้สอน'
         var tr = tb.appendChild(document.createElement('tr'))
         var code = tr.appendChild(document.createElement('th'))
         code.innerHTML = sub.subjectCode.slice(0, 8)
@@ -184,6 +190,7 @@ async function renderPage() {
         prepareDownload()
     }
     renderModal()
+    drawTimetable()
     // $('#myList').modal('show')
 }
 
