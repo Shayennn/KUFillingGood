@@ -112,6 +112,7 @@ function prepareDownload() {
 }
 
 function renderModal(){
+    document.getElementById('currentCredit').innerText = Sess['currentCredit']
     const tb = document.getElementById('sublist')
     tb.innerHTML = ''
     var FixedSubjectInfo = Sess['FixedSubjectInfo'].sort((a, b)=>{
