@@ -125,6 +125,7 @@ function renderModal(){
         if (sub.nonProperty === null) sub.nonProperty = 'ติดต่อผู้สอน'
         if (sub.midternDate === null) sub.midternDate = 'ติดต่อผู้สอน'
         if (sub.finalDate === null) sub.finalDate = 'ติดต่อผู้สอน'
+        if (sub.coursedate === null) sub.coursedate = 'ติดต่อผู้สอน'
         var tr = tb.appendChild(document.createElement('tr'))
         var code = tr.appendChild(document.createElement('th'))
         code.innerHTML = sub.subjectCode.slice(0, 8)
