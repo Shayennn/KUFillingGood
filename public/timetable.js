@@ -1,13 +1,13 @@
 function findMinMaxTime() {
     var mintime = 8 * 60
-    var maxtime = 15 * 60 + 30
+    var maxtime = 15 * 60
     Sess['FixedSubjectInfo'].forEach((sub) => {
         str2timearr(sub.coursedate).forEach((timearr) => {
             if (timearr[0] < mintime) mintime = timearr[0]
             if (timearr[1] > maxtime) maxtime = timearr[1]
         })
     })
-    return [mintime, maxtime];
+    return [mintime - 60, maxtime + 60];
 }
 
 function getRandomColor() {
