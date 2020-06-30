@@ -19,11 +19,44 @@
     <div class="container mt-4 mb-5">
         <h1>KUFillingGood <small class="text-muted">ผลการค้นหา</small></h1>
         <div class="btn-group mt-4">
-            <a class="btn btn-primary" data-toggle="collapse" href="#filterbox">
+            <a class="btn btn-info" data-toggle="collapse" href="#filterbox">
                 ตัวกรองผลการค้นหา
             </a>
-            <a href="#timetablebox" data-toggle="collapse" class="btn btn-secondary" onclick="setTimeout(drawTimetable, 1)">ตารางเรียน</a>
+            <a href="#timetablebox" data-toggle="collapse" class="btn btn-info"
+                onclick="setTimeout(drawTimetable, 1)">ตารางเรียน</a>
+            <button type="button" class="btn btn-info" data-toggle="modal"
+                data-target="#myList">หมู่เรียนที่เลือกไว้</button>
             <a id="downloadBtn" href="#" class="btn btn-info disabled">Download CSV</a>
+        </div>
+
+        <div class="modal fade" id="myList" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">หมู่เรียนที่เลือกไว้</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>รหัสวิชา</th>
+                                        <th style="min-width: 400px;"></th>
+                                        <th style="min-width: 250px;">ผู้สอน</th>
+                                        <th style="min-width: 150px;">สถานที่เรียน</th>
+                                        <th style="min-width: 100px;">ดำเนินการ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sublist">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="filterbox" class="collapse">
@@ -112,9 +145,9 @@
                 </form>
             </div>
         </div>
-        
+
         <div id="timetablebox" class="collapse timetable"></div>
-        
+
         <div id="resultList">
             กรุณาเปิด JavaScript
         </div>

@@ -5,12 +5,33 @@ function subjectAddBtn(btn) {
     renderPage()
 }
 
+function subjectRemoveBtn(btn) {
+    console.log(Sess['FixedSubjectInfo'][btn.target.getAttribute('subindex')])
+    removeSubjectFromMyList(Sess['FixedSubjectInfo'][btn.target.getAttribute('subindex')])
+    renderPage()
+}
+
 function addSubjectToMyList(sub) {
     Sess['FixedSubject'].push(sub.subjectCode.slice(0, 8) + ":" + sub.sectionCode)
     Sess['FixedSubjectInfo'].push(sub)
     Sess['currentCredit'] += sub.maxCredit
     str2timearr(sub.coursedate).forEach((val) => {
         addsubject2timetable(val[0], val[1], val[2], sub.subjectCode.slice(0, 8) + ":" + sub.sectionCode + " - " + sub.subjectNameEn + " (" + sub.sectionTypeEn + ")");
+    })
+    saveSession()
+    sessionStorage.setItem('subjectList', JSON.stringify(Sess['FixedSubject']));
+}
+
+
+function removeSubjectFromMyList(sub) {
+    Sess['FixedSubject'].splice(Sess['FixedSubject'].indexOf(sub.subjectCode.slice(0, 8) + ":" + sub.sectionCode), 1)
+    Sess['FixedSubjectInfo'].splice(Sess['FixedSubjectInfo'].indexOf(sub), 1)
+    Sess['currentCredit'] -= sub.maxCredit
+    Sess['timetable'] = [[],[],[],[],[],[],[]]
+    Sess['FixedSubjectInfo'].forEach((sub) => {
+        str2timearr(sub.coursedate).forEach((val) => {
+            addsubject2timetable(val[0], val[1], val[2], sub.subjectCode.slice(0, 8) + ":" + sub.sectionCode + " - " + sub.subjectNameEn + " (" + sub.sectionTypeEn + ")");
+        })
     })
     saveSession()
     sessionStorage.setItem('subjectList', JSON.stringify(Sess['FixedSubject']));
@@ -90,6 +111,40 @@ function prepareDownload() {
     document.getElementById('downloadBtn').download = 'KUFillingGood.csv';
 }
 
+function renderModal(){
+    const tb = document.getElementById('sublist')
+    tb.innerHTML = ''
+    var FixedSubjectInfo = Sess['FixedSubjectInfo'].sort((a, b)=>{
+        return parseInt(a.subjectCode.slice(0, 8)) * 1000 + parseInt(a.sectionCode) - parseInt(b.subjectCode.slice(0, 8)) * 1000 + parseInt(b.sectionCode)
+    })
+    FixedSubjectInfo.forEach((sub) => {
+        var tr = tb.appendChild(document.createElement('tr'))
+        var code = tr.appendChild(document.createElement('th'))
+        code.innerHTML = sub.subjectCode.slice(0, 8)
+        code.innerHTML += '<br>'
+        code.innerHTML += 'Sec: '+sub.sectionCode
+        var info = tr.appendChild(document.createElement('td'))
+        info.innerHTML = sub.subjectNameTh
+        info.innerHTML += '<br>'
+        info.innerHTML += sub.subjectNameEn
+        info.innerHTML += '<br>'
+        info.innerHTML += '<br>'
+        info.innerHTML += sub.coursedate.split(',').join('<br>')
+        info.innerHTML = '<small>'+info.innerHTML+'</small>'
+        var teacher = tr.appendChild(document.createElement('td'))
+        teacher.innerHTML = sub.teacherName
+        var roomName = tr.appendChild(document.createElement('td'))
+        roomName.innerHTML = sub.roomNameTh
+        var action_col = tr.appendChild(document.createElement('td'))
+        var delbtn = action_col.appendChild(document.createElement('button'))
+        delbtn.textContent = 'นำออก'
+        delbtn.classList.add('btn')
+        delbtn.classList.add('btn-danger')
+        delbtn.setAttribute('subindex', Sess['FixedSubjectInfo'].indexOf(sub))
+        delbtn.onclick = subjectRemoveBtn
+    })
+}
+
 async function renderPage() {
     if (sessionStorage.getItem('theSession') === null) {
         document.getElementById('resultList').innerHTML = '<h2 class="text-center mt-5 pt-5">กลับไปกรอกข้อมูลวิชาก่อนนะ ^^</h2>'
@@ -116,7 +171,7 @@ async function renderPage() {
 
     var download = '';
     if (Sess['canAdd'].length == 0) {
-        document.getElementById('resultList').innerHTML = '<h2 class="text-center mt-5 pt-5">ว้าาา เสียใจด้วยนะ ไม่เจอเลยสักตัว</h2>'
+        document.getElementById('resultList').innerHTML = '<h2 class="text-center mt-5 pt-5">ว้าาา เสียใจด้วยนะ ไม่เจอที่ลงได้เลยสักตัว</h2>'
         document.getElementById('downloadBtn').classList.add('disabled')
     } else if (Sess['canAdd'].length > 200) {
         document.getElementById('resultList').innerHTML = '<p class="text-muted text-right mt-3"> กำลังแสดง 200 หมู่เรียนแรก จากทั้งหมด ' + Sess['canAdd'].length + ' หมู่เรียน</p>'
@@ -127,6 +182,8 @@ async function renderPage() {
         Sess['canAdd'].forEach(addCard)
         prepareDownload()
     }
+    renderModal()
+    // $('#myList').modal('show')
 }
 
 document.addEventListener("DOMContentLoaded", renderPage);
