@@ -46,10 +46,10 @@ if (DEBUG) {
     // findSubjectData();
 }
 
-function renderMain(){
+function renderMain() {
     var ss = document.getElementById('subject_section')
     var sess_sub = sessionStorage.getItem('subjectList')
-    if(sess_sub !== null && ss !== null){
+    if (sess_sub !== null && ss !== null) {
         ss.value = JSON.parse(sess_sub).join("\n")
     }
 }
@@ -134,9 +134,26 @@ function parseSubject() {
 function findSubjectData() {
     var newFixed = [];
     var timeslotconflict = null;
+    Sess['currentCredit'] = 0;
+    Sess['FixedSubjectInfo'] = [];
+    Sess['timetable'] = [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+    ];
+    Sess['subjectData'].results.sort((a, b) => {
+        return parseInt(b.subjectCode.slice(8, b.subjectCode.length)) - parseInt(b.subjectCode.slice(8, b.subjectCode.length))
+    })
+    var FixedSubject = [...Sess['FixedSubject']]
     Sess['subjectData'].results.some((sub) => {
         var subjectid = sub.subjectCode.slice(0, 8) + ":" + sub.sectionCode
-        if (Sess['FixedSubject'].includes(subjectid)) {
+        var a = FixedSubject.indexOf(subjectid)
+        if (a != -1) {
+            FixedSubject.splice(a, 1)
             Sess['FixedSubjectInfo'].push(sub)
             newFixed.push(subjectid + " - " + sub.subjectNameEn + " (" + sub.sectionTypeEn + ")")
             Sess['currentCredit'] += sub.maxCredit;
@@ -182,7 +199,7 @@ function findSubjectData() {
             showConfirmButton: false,
             footer: 'กำลังนำไปยังผลการค้นหา'
         })
-        setTimeout(()=>{
+        setTimeout(() => {
             window.location = 'result.html'
         }, 2000)
     } else {
@@ -267,7 +284,7 @@ function addsubject2timetable(start_time, end_time, dow, subName) {
 function findAllCanReg(GenFilter = false, Credit = false, DepYear = false, SectionType = false, GenType = false, DepSpecific = true) {
     Sess['canAdd'] = []
     Sess['subjectData'].results.forEach((sub) => {
-        if(sub.subjectNameEn !== null && sub.subjectNameEn.toLowerCase() == 'seminar')return;
+        if (sub.subjectNameEn !== null && sub.subjectNameEn.toLowerCase() == 'seminar') return;
         // console.log(sub)
         if (stdType == 1 && !(sub.sectionCode < 100)) return;
         if (stdType == 2 && !(sub.sectionCode < 500 && sub.sectionCode >= 200)) return;
@@ -280,7 +297,7 @@ function findAllCanReg(GenFilter = false, Credit = false, DepYear = false, Secti
 
         if (GenFilter && !Sess['BuuData'].hasOwnProperty(sub.subjectCode.slice(0, 8))) return; // Hide Buu
 
-        if (DepYear !== false && DepSpecific  && (sub.property == null || sub.property == 'ALL' || sub.property == '-')) return;
+        if (DepYear !== false && DepSpecific && (sub.property == null || sub.property == 'ALL' || sub.property == '-')) return;
         // console.log(sub.property)
         if (Credit !== false && sub.maxCredit != Credit) return;
 
@@ -288,14 +305,14 @@ function findAllCanReg(GenFilter = false, Credit = false, DepYear = false, Secti
             sub = Object.assign({}, Sess['BuuData'][sub.subjectCode.slice(0, 8)], sub)
             // if (sub.type != 'ภาษากับการสื่อสาร') return;
             if (GenType !== false && sub.type != GenType) return;
-        }else if (GenType !== false) {
+        } else if (GenType !== false) {
             return;
         }
 
         if (SectionType !== false && sub.sectionTypeEn != SectionType) return;
         if (str2timearr(sub.coursedate).some((val) => {
-            return !checkTimeAvailable(val[0], val[1], val[2])
-        })) return;
+                return !checkTimeAvailable(val[0], val[1], val[2])
+            })) return;
         if (DepYear !== false && sub.property != null && sub.property != 'ALL' && sub.property != '-') {
             var FacCode = DepYear.slice(0, 1);
             var DepCode = DepYear.slice(1, 3);
