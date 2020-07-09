@@ -146,7 +146,7 @@ function findSubjectData() {
         []
     ];
     Sess['subjectData'].results.sort((a, b) => {
-        return parseInt(b.subjectCode.slice(8, b.subjectCode.length)) - parseInt(b.subjectCode.slice(8, b.subjectCode.length))
+        return parseInt(b.subjectCode.slice(8, b.subjectCode.length)) - parseInt(a.subjectCode.slice(8, a.subjectCode.length))
     })
     var FixedSubject = [...Sess['FixedSubject']]
     Sess['subjectData'].results.some((sub) => {
@@ -297,7 +297,7 @@ function findAllCanReg(GenFilter = false, Credit = false, DepYear = false, Secti
 
         if (GenFilter && !Sess['BuuData'].hasOwnProperty(sub.subjectCode.slice(0, 8))) return; // Hide Buu
 
-        if (DepYear !== false && DepSpecific && (sub.property == null || sub.property == 'ALL' || sub.property == '-')) return;
+        if (DepYear !== false && DepSpecific && (sub.property == null || sub.property.toLowerCase() == 'all' || sub.property.toLowerCase() == 'all-all' || sub.property == '-')) return;
         // console.log(sub.property)
         if (Credit !== false && sub.maxCredit != Credit) return;
 
