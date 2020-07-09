@@ -1,66 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@skl_shayen">
-    <meta name="twitter:title" content="KUFillingGood">
-    <meta name="twitter:description" content="ระบบที่จะทำให้ KU Feel Good กับการจัดวิชานอกภาคลงตารางเรียน">
-    <meta name="twitter:image" content="https://kufillinggood.web.app/th.png">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@skl_shayen" />
+    <meta name="twitter:title" content="KUFillingGood" />
+    <meta
+      name="twitter:description"
+      content="ระบบที่จะทำให้ KU Feel Good กับการจัดวิชานอกภาคลงตารางเรียน"
+    />
+    <meta name="twitter:image" content="https://kufillinggood.web.app/th.png" />
 
     <meta property="og:url" content="https://kufillinggood.web.app" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="th_TH" />
     <meta property="og:title" content="KUFillingGood" />
-    <meta property="og:description" content="ระบบที่จะทำให้ KU Feel Good กับการจัดวิชานอกภาคลงตารางเรียน" />
+    <meta
+      property="og:description"
+      content="ระบบที่จะทำให้ KU Feel Good กับการจัดวิชานอกภาคลงตารางเรียน"
+    />
     <meta property="og:image" content="https://kufillinggood.web.app/th.png" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
 
     <title>KUFillingGood</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container mt-4">
-        <h1>KUFillingGood</h1>
-        <p class="lead">
-            ระบบที่จะทำให้ KU Feel Good กับการจัดวิชานอกภาคลงตารางเรียน
-        </p>
-        <form>
-            <div class="form-group">
-                <label for="subject_section">รหัสวิชาและหมู่เรียนที่จะลงแน่นอนในเทอมนี้</label>
-                <textarea autofocus name="subject_section" id="subject_section" cols="30" rows="10" class="form-control"
-                    placeholder="ในรูปแบบ รหัสวิชา:หมู่เรียน เช่น 01204111:1 และให้แบ่งวิชาด้วยการขึ้นบรรทัดใหม่"></textarea>
-                <small id="subject_section_help"
-                    class="form-text text-muted">วิชาที่มีหมู่เรียนบรรยายและปฏิบัติให้กรอกแยกกัน</small>
-            </div>
-            <!-- <div class="form-group form-check">
+      <h1>KUFillingGood</h1>
+      <p class="lead">
+        ระบบที่จะทำให้ KU Feel Good กับการจัดวิชานอกภาคลงตารางเรียน
+      </p>
+      <form>
+        <div class="form-group">
+          <label for="subject_section"
+            >รหัสวิชาและหมู่เรียนที่จะลงแน่นอนในเทอมนี้</label
+          >
+          <textarea
+            autofocus
+            name="subject_section"
+            id="subject_section"
+            cols="30"
+            rows="10"
+            class="form-control"
+            placeholder="ในรูปแบบ รหัสวิชา:หมู่เรียน เช่น 01204111:1 และให้แบ่งวิชาด้วยการขึ้นบรรทัดใหม่"
+          ></textarea>
+          <small id="subject_section_help" class="form-text text-muted"
+            >วิชาที่มีหมู่เรียนบรรยายและปฏิบัติให้กรอกแยกกัน</small
+          >
+        </div>
+        <!-- <div class="form-group form-check">
                 <input type="checkbox" class="form-check-input" id="BuuCheckbox" checked />
                 <label class="form-check-label" for="BuuCheckbox">ค้นหาเฉพาะวิชาบูรณาการ</label>
             </div> -->
-            <button id="thebtn" type="button" onclick="btnAction()" class="btn btn-primary btn-block">
-                ตรวจสอบข้อมูล
-            </button>
-        </form>
+        <button
+          id="thebtn"
+          type="button"
+          onclick="btnAction()"
+          class="btn btn-primary btn-block"
+        >
+          ตรวจสอบข้อมูล
+        </button>
+      </form>
     </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="main.js"></script>
-</body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyATnR5swvvye-kbJV_klrXcvvdV6lLAD-k",
+        authDomain: "kufillinggood.firebaseapp.com",
+        databaseURL: "https://kufillinggood.firebaseio.com",
+        projectId: "kufillinggood",
+        storageBucket: "kufillinggood.appspot.com",
+        messagingSenderId: "957646128105",
+        appId: "1:957646128105:web:9e44aece4d16650beb8178",
+        measurementId: "G-BJ7VZ6PMKG",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+  </body>
 </html>

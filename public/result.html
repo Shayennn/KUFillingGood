@@ -1,174 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
-    <link rel="stylesheet" href="timetable/styles/timetablejs.css">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="timetable/styles/timetablejs.css" />
     <link rel="stylesheet" href="result.css" />
 
     <title>KUFillingGood</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container mt-4 mb-5">
-        <h1>KUFillingGood <small class="text-muted">ผลการค้นหา</small></h1>
-        <div class="btn-group mt-4">
-            <a class="btn btn-info" data-toggle="collapse" href="#filterbox">
-                ตัวกรองผลการค้นหา
-            </a>
-            <a href="#timetablebox" data-toggle="collapse" class="btn btn-info"
-                onclick="setTimeout(drawTimetable, 1)">ตารางเรียน</a>
-            <button type="button" class="btn btn-info" data-toggle="modal"
-                data-target="#myList">หมู่เรียนที่เลือกไว้</button>
-            <a id="downloadBtn" href="#" class="btn btn-info disabled">Download CSV</a>
-        </div>
+      <h1>KUFillingGood <small class="text-muted">ผลการค้นหา</small></h1>
+      <div class="btn-group mt-4">
+        <a class="btn btn-info" data-toggle="collapse" href="#filterbox">
+          ตัวกรองผลการค้นหา
+        </a>
+        <a
+          href="#timetablebox"
+          data-toggle="collapse"
+          class="btn btn-info"
+          onclick="setTimeout(drawTimetable, 1)"
+          >ตารางเรียน</a
+        >
+        <button
+          type="button"
+          class="btn btn-info"
+          data-toggle="modal"
+          data-target="#myList"
+        >
+          หมู่เรียนที่เลือกไว้
+        </button>
+        <a id="downloadBtn" href="#" class="btn btn-info disabled"
+          >Download CSV</a
+        >
+      </div>
 
-        <div class="modal fade" id="myList" tabindex="-1">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">หมู่เรียนที่เลือกไว้ <span class="badge badge-pill badge-primary"><span id="currentCredit"></span> หน่วยกิต</span></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>รหัสวิชา</th>
-                                        <th style="min-width: 400px;"></th>
-                                        <th style="min-width: 250px;">ผู้สอน</th>
-                                        <th style="min-width: 150px;">สถานที่เรียน</th>
-                                        <th style="min-width: 100px;">ดำเนินการ</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="sublist">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+      <div class="modal fade" id="myList" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">
+                หมู่เรียนที่เลือกไว้
+                <span class="badge badge-pill badge-primary"
+                  ><span id="currentCredit"></span> หน่วยกิต</span
+                >
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>รหัสวิชา</th>
+                      <th style="min-width: 400px;"></th>
+                      <th style="min-width: 250px;">ผู้สอน</th>
+                      <th style="min-width: 150px;">สถานที่เรียน</th>
+                      <th style="min-width: 100px;">ดำเนินการ</th>
+                    </tr>
+                  </thead>
+                  <tbody id="sublist"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="filterbox" class="collapse">
+        <div class="card card-body">
+          <form class="mt-2">
+            <div class="form-group row">
+              <label for="txtDepCode" class="col-sm-3 col-form-label"
+                >รหัสภาคปีของคุณ</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtDepCode"
+                  placeholder="เช่น E09-4"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-3">เจาะจงรหัสภาคปี</div>
+              <div class="col-sm-9">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="chkDepSpe"
+                    checked
+                  />
+                  <label class="form-check-label" for="chkDepSpe">
+                    เจาะจง
+                  </label>
                 </div>
+              </div>
             </div>
-        </div>
-
-        <div id="filterbox" class="collapse">
-            <div class="card card-body">
-                <form class="mt-2">
-                    <div class="form-group row">
-                        <label for="txtDepCode" class="col-sm-3 col-form-label">รหัสภาคปีของคุณ</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="txtDepCode" placeholder="เช่น E09-4">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-3">เจาะจงรหัสภาคปี</div>
-                        <div class="col-sm-9">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="chkDepSpe" checked>
-                                <label class="form-check-label" for="chkDepSpe">
-                                    เจาะจง
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="txtCredit" class="col-sm-3 col-form-label">หน่วยกิตที่สนใจ</label>
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control" id="txtCredit" placeholder="เช่น 4">
-                        </div>
-                    </div>
-                    <fieldset class="form-group">
-                        <div class="row">
-                            <legend class="col-form-label col-sm-3 pt-0">ประเภทวิชา</legend>
-                            <div class="col-sm-9">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="optSecType" id="optSecTypeLec"
-                                        value="Lecture">
-                                    <label class="form-check-label" for="optSecTypeLec">
-                                        ทฤษฎี
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="optSecType" id="optSecTypeLab"
-                                        value="Lab">
-                                    <label class="form-check-label" for="optSecTypeLab">
-                                        ปฏิบัติ
-                                    </label>
-                                </div>
-                                <div class="form-check disabled">
-                                    <input class="form-check-input" type="radio" name="optSecType" id="optSecTypeAll"
-                                        value="" checked>
-                                    <label class="form-check-label" for="optSecTypeAll">
-                                        ทั้งหมด
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <div class="form-group row">
-                        <div class="col-sm-3">หมวดวิชา</div>
-                        <div class="col-sm-9">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="chkGenFilter" checked>
-                                <label class="form-check-label" for="chkGenFilter">
-                                    เฉพาะวิชาบูรณาการ
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="optGenType" class="col-sm-3 col-form-label">หมวดวิชาบูรณาการ</label>
-                        <div class="col-sm-9">
-                            <select name="optGenType" id="optGenType" class="form-control">
-                                <option value="">ทั้งหมด</option>
-                                <option value="อยู่ดีมีสุข">อยู่ดีมีสุข</option>
-                                <option value="ศาสตร์แห่งผู้ประกอบการ">ศาสตร์แห่งผู้ประกอบการ</option>
-                                <option value="พลเมืองไทยและพลเมืองโลก">พลเมืองไทยและพลเมืองโลก</option>
-                                <option value="ภาษากับการสื่อสาร">ภาษากับการสื่อสาร</option>
-                                <option value="สุนทรียศาสตร์">สุนทรียศาสตร์</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row mt-4">
-                        <!-- <div class="col-sm-9"> -->
-                        <button type="button" onclick="updateFilter()" class="btn btn-info btn-block">คัดกรอง</button>
-                        <!-- </div> -->
-                    </div>
-                </form>
+            <div class="form-group row">
+              <label for="txtCredit" class="col-sm-3 col-form-label"
+                >หน่วยกิตที่สนใจ</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="number"
+                  class="form-control"
+                  id="txtCredit"
+                  placeholder="เช่น 4"
+                />
+              </div>
             </div>
+            <fieldset class="form-group">
+              <div class="row">
+                <legend class="col-form-label col-sm-3 pt-0">ประเภทวิชา</legend>
+                <div class="col-sm-9">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="optSecType"
+                      id="optSecTypeLec"
+                      value="Lecture"
+                    />
+                    <label class="form-check-label" for="optSecTypeLec">
+                      ทฤษฎี
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="optSecType"
+                      id="optSecTypeLab"
+                      value="Lab"
+                    />
+                    <label class="form-check-label" for="optSecTypeLab">
+                      ปฏิบัติ
+                    </label>
+                  </div>
+                  <div class="form-check disabled">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="optSecType"
+                      id="optSecTypeAll"
+                      value=""
+                      checked
+                    />
+                    <label class="form-check-label" for="optSecTypeAll">
+                      ทั้งหมด
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+            <div class="form-group row">
+              <div class="col-sm-3">หมวดวิชา</div>
+              <div class="col-sm-9">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="chkGenFilter"
+                    checked
+                  />
+                  <label class="form-check-label" for="chkGenFilter">
+                    เฉพาะวิชาบูรณาการ
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="optGenType" class="col-sm-3 col-form-label"
+                >หมวดวิชาบูรณาการ</label
+              >
+              <div class="col-sm-9">
+                <select name="optGenType" id="optGenType" class="form-control">
+                  <option value="">ทั้งหมด</option>
+                  <option value="อยู่ดีมีสุข">อยู่ดีมีสุข</option>
+                  <option value="ศาสตร์แห่งผู้ประกอบการ"
+                    >ศาสตร์แห่งผู้ประกอบการ</option
+                  >
+                  <option value="พลเมืองไทยและพลเมืองโลก"
+                    >พลเมืองไทยและพลเมืองโลก</option
+                  >
+                  <option value="ภาษากับการสื่อสาร">ภาษากับการสื่อสาร</option>
+                  <option value="สุนทรียศาสตร์">สุนทรียศาสตร์</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row mt-4">
+              <!-- <div class="col-sm-9"> -->
+              <button
+                type="button"
+                onclick="updateFilter()"
+                class="btn btn-info btn-block"
+              >
+                คัดกรอง
+              </button>
+              <!-- </div> -->
+            </div>
+          </form>
         </div>
+      </div>
 
-        <div id="timetablebox" class="collapse w-75 mx-auto timetable"></div>
+      <div id="timetablebox" class="collapse w-75 mx-auto timetable"></div>
 
-        <div id="resultList">
-            กรุณาเปิด JavaScript
-        </div>
-
+      <div id="resultList">
+        กรุณาเปิด JavaScript
+      </div>
     </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="timetable/scripts/timetable.js"></script>
     <script src="main.js"></script>
     <script src="result.js"></script>
     <script src="filter.js"></script>
     <script src="timetable.js"></script>
-</body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyATnR5swvvye-kbJV_klrXcvvdV6lLAD-k",
+        authDomain: "kufillinggood.firebaseapp.com",
+        databaseURL: "https://kufillinggood.firebaseio.com",
+        projectId: "kufillinggood",
+        storageBucket: "kufillinggood.appspot.com",
+        messagingSenderId: "957646128105",
+        appId: "1:957646128105:web:9e44aece4d16650beb8178",
+        measurementId: "G-BJ7VZ6PMKG",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+  </body>
 </html>
