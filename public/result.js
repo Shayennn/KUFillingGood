@@ -181,6 +181,7 @@ function renderModal() {
         info.innerHTML += sub.subjectNameEn;
         info.innerHTML += "<br>";
         info.innerHTML += "Credit: " + sub.maxCredit;
+        info.innerHTML += " Seat: " + sub.totalSeat;
         info.innerHTML += "<br>";
         info.innerHTML += sub.coursedate.split(",").join("<br>");
         info.innerHTML = "<small>" + info.innerHTML + "</small>";
@@ -209,7 +210,9 @@ async function renderPage() {
             filter["DepCode"],
             filter["SecType"],
             filter["GenType"],
-            filter["DepSpecific"]
+            filter["DepSpecific"],
+            filter["SubCode"],
+            filter["Teacher"]
         );
     console.log(Sess["canAdd"].length, "Sorting");
     Sess["canAdd"] = Sess["canAdd"].sort((a, b) => {

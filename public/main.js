@@ -5,9 +5,11 @@ var Sess = {
     FixedSubjectInfo: [],
     timetable: [[], [], [], [], [], [], []],
     canAdd: [],
-    creditLimit: 22,
+    creditLimit: 80,
     currentCredit: 0,
     filter: {
+        Teacher: false,
+        SubCode: false,
         DepCode: false,
         SecType: false,
         GenFilter: true,
@@ -329,7 +331,9 @@ function findAllCanReg(
     DepYear = false,
     SectionType = false,
     GenType = false,
-    DepSpecific = true
+    DepSpecific = true,
+    SubCode = false,
+    Teacher = false
 ) {
     Sess["canAdd"] = [];
     Sess["subjectData"].results.forEach((sub) => {
@@ -413,6 +417,12 @@ function findAllCanReg(
             });
             if (someNotPass) return;
         }
+        if (SubCode !== false && !sub.subjectCode.includes(SubCode)) return;
+        if (
+            Teacher !== false &&
+            (sub.teacherName === null || !sub.teacherName.includes(Teacher))
+        )
+            return;
 
         Sess["canAdd"].push(sub);
     });
