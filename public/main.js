@@ -388,8 +388,9 @@ function findAllCanReg(
         if (
             DepYear !== false &&
             sub.property != null &&
-            sub.property != "ALL" &&
-            sub.property != "-"
+            sub.property.toLowerCase() != "all" &&
+            sub.property.toLowerCase() != "all-all" &&
+            sub.property.toLowerCase() != "-"
         ) {
             var FacCode = DepYear.slice(0, 1);
             var DepCode = DepYear.slice(1, 3);
