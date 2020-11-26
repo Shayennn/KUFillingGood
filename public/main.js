@@ -83,9 +83,12 @@ function sessionFetcher() {
 }
 
 async function loadSubject() {
-    await $.getJSON("SubjectOpen.json", function (data) {
-        Sess["subjectData"] = data;
-    });
+    await $.getJSON(
+        "https://kufillinggood.appspot.com.storage.googleapis.com/SubjectOpen.json",
+        function (data) {
+            Sess["subjectData"] = data;
+        }
+    );
     return Sess["subjectData"];
 }
 
