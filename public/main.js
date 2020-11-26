@@ -5,7 +5,7 @@ var Sess = {
     FixedSubjectInfo: [],
     timetable: [[], [], [], [], [], [], []],
     canAdd: [],
-    creditLimit: 80,
+    creditLimit: 22,
     currentCredit: 0,
     filter: {
         Teacher: false,
