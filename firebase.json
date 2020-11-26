@@ -5,10 +5,10 @@
     },
     "emulators": {
         "functions": {
-            "port": 5001
+            "port": 6001
         },
         "hosting": {
-            "port": 5000
+            "port": 6000
         },
         "ui": {
             "enabled": true
