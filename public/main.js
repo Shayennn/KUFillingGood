@@ -1,3 +1,6 @@
+const SubjectAPI =
+    "https://kufillinggood.appspot.com.storage.googleapis.com/SubjectOpen.json";
+
 var Sess = {
     subjectData: [],
     BuuData: [],
@@ -85,12 +88,9 @@ function sessionFetcher() {
 }
 
 async function loadSubject() {
-    await $.getJSON(
-        "https://kufillinggood.appspot.com.storage.googleapis.com/SubjectOpen.json",
-        function (data) {
-            Sess["subjectData"] = data;
-        }
-    );
+    await $.getJSON(SubjectAPI, function (data) {
+        Sess["subjectData"] = data;
+    });
     return Sess["subjectData"];
 }
 
