@@ -1,6 +1,7 @@
 const functions = require("firebase-functions");
 const axios = require("axios").default;
 const admin = require("firebase-admin");
+const zlib = require("zlib");
 
 admin.initializeApp();
 
@@ -112,7 +113,7 @@ exports.reloadCache = functions.https.onRequest(async (request, response) => {
     await axios
         .get("https://myapi.ku.th/enroll/openSubjectForEnroll", config)
         .then(async function (resku) {
-            resku.data.pipe(writer);
+            resku.data.pipe(zlib.createGzip()).pipe(writer);
             let error = null;
             writer.on("error", (err) => {
                 error = err;
@@ -125,6 +126,7 @@ exports.reloadCache = functions.https.onRequest(async (request, response) => {
                     // console.log(bucket);
                     const metadata = {
                         contentType: "application/json",
+                        contentEncoding: "gzip",
                         cacheControl: "public, max-age=3600",
                     };
                     await bucket.upload("/tmp/SubjectOpen.json", {
