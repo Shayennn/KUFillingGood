@@ -54,14 +54,14 @@ function renderMain() {
 
 document.addEventListener("DOMContentLoaded", renderMain);
 
-function btnAction() {
+async function btnAction() {
     var btn = document.getElementById("thebtn");
     btn.classList.add("disabled");
     btn.setAttribute("disabled", "disabled");
     btn.innerText = "กำลังตรวจสอบ";
-    parseSubject();
-    loadBuu();
-    loadSubject()
+    await parseSubject();
+    await loadBuu();
+    await loadSubject()
         .then(findSubjectData)
         .then(() => {
             console.log(Sess["FixedSubjectInfo"]);
@@ -147,7 +147,7 @@ function findSubjectData() {
     var FixedSubject = [...Sess["FixedSubject"]];
     Sess["subjectData"].results.some((sub) => {
         var subjectid = sub.subjectCode + ":" + sub.sectionCode;
-        console.log(subjectid);
+        // console.log(subjectid);
         var a = FixedSubject.indexOf(subjectid);
         if (a != -1) {
             FixedSubject.splice(a, 1);
