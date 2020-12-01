@@ -94,6 +94,7 @@ function renderSubjectCard(sub, id) {
     thisCard = thisCard.replace("{{id}}", id);
     thisCard = thisCard.replace("{{id}}", id);
     thisCard = thisCard.replace("{{id}}", id);
+    thisCard = thisCard.replace("{{id}}", id);
     thisCard = thisCard.replace("{{Code}}", sub.subjectCode);
     thisCard = thisCard.replace("{{Section}}", sub.sectionCode);
     thisCard = thisCard.replace("{{SecColor}}", SecColor);
@@ -115,6 +116,12 @@ function renderSubjectCard(sub, id) {
 async function addCard(sub, id) {
     var cardtxt = renderSubjectCard(sub, id);
     document.getElementById("resultList").innerHTML += cardtxt;
+    if (sub.hasOwnProperty("type")) {
+        document.getElementById("rev_" + id).href =
+            "https://www.kuclap.com/" + sub.subjectCode.slice(0, 8);
+    } else {
+        document.getElementById("rev_" + id).remove();
+    }
     return;
 }
 
