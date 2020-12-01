@@ -212,7 +212,8 @@ async function renderPage() {
             filter["GenType"],
             filter["DepSpecific"],
             filter["SubCode"],
-            filter["Teacher"]
+            filter["Teacher"],
+            filter["SubName"]
         );
     console.log(Sess["canAdd"].length, "Sorting");
     Sess["canAdd"] = Sess["canAdd"].sort((a, b) => {

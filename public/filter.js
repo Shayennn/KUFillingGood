@@ -1,4 +1,5 @@
 var filter = {
+    SubName: false,
     SubCode: false,
     Teacher: false,
     DepCode: false,
@@ -11,6 +12,10 @@ var filter = {
 
 function loadFilter() {
     filter = Sess["filter"];
+    if (filter["SubName"] === false)
+        document.getElementById("txtSubName").value = "";
+    else document.getElementById("txtSubName").value = filter["SubName"];
+
     if (filter["Teacher"] === false)
         document.getElementById("txtTeacher").value = "";
     else document.getElementById("txtTeacher").value = filter["Teacher"];
@@ -43,6 +48,9 @@ function loadFilter() {
 }
 
 function parseFilter() {
+    filter["SubName"] = document.getElementById("txtSubName").value;
+    if (filter["SubName"] == "") filter["SubName"] = false;
+
     filter["Teacher"] = document.getElementById("txtTeacher").value;
     if (filter["Teacher"] == "") filter["Teacher"] = false;
 

@@ -11,6 +11,7 @@ var Sess = {
     creditLimit: 22,
     currentCredit: 0,
     filter: {
+        SubName: false,
         Teacher: false,
         SubCode: false,
         DepCode: false,
@@ -333,7 +334,8 @@ function findAllCanReg(
     GenType = false,
     DepSpecific = true,
     SubCode = false,
-    Teacher = false
+    Teacher = false,
+    SubName = false
 ) {
     Sess["canAdd"] = [];
     Sess["subjectData"].results.forEach((sub) => {
@@ -420,7 +422,24 @@ function findAllCanReg(
         if (SubCode !== false && !sub.subjectCode.includes(SubCode)) return;
         if (
             Teacher !== false &&
-            (sub.teacherName === null || !sub.teacherName.includes(Teacher))
+            (sub.teacherName === null ||
+                !sub.teacherName.toLowerCase().includes(Teacher.toLowerCase()))
+        )
+            return;
+
+        if (
+            typeof SubName !== "undefined" &&
+            SubName !== false &&
+            !(
+                (sub.subjectNameTh !== null &&
+                    sub.subjectNameTh
+                        .toLowerCase()
+                        .includes(SubName.toLowerCase())) ||
+                (sub.subjectNameEn !== null &&
+                    sub.subjectNameEn
+                        .toLowerCase()
+                        .includes(SubName.toLowerCase()))
+            )
         )
             return;
 
