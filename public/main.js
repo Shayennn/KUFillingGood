@@ -414,10 +414,10 @@ function findAllCanReg(
                         "])?$"
                 );
             }
-            var someNotPass = sub.property.split(",").some((val) => {
-                return !regex.test(val);
+            var somePass = sub.property.split(",").some((val) => {
+                return regex.test(val);
             });
-            if (someNotPass) return;
+            if (!somePass) return;
         }
         if (SubCode !== false && !sub.subjectCode.includes(SubCode)) return;
         if (
