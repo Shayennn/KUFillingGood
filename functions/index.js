@@ -127,7 +127,7 @@ exports.reloadCache = functions.https.onRequest(async (request, response) => {
                     const metadata = {
                         contentType: "application/json",
                         contentEncoding: "gzip",
-                        cacheControl: "public, max-age=3600",
+                        cacheControl: "public, max-age=600",
                     };
                     await bucket.upload("/tmp/SubjectOpen.json", {
                         metadata: metadata,
