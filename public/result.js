@@ -33,7 +33,10 @@ function addSubjectToMyList(sub) {
         );
     });
     saveSession();
-    sessionStorage.setItem("subjectList", JSON.stringify(Sess["FixedSubject"]));
+    window.localStorage.setItem(
+        "subjectList",
+        JSON.stringify(Sess["FixedSubject"])
+    );
 }
 
 function removeSubjectFromMyList(sub) {
@@ -62,7 +65,10 @@ function removeSubjectFromMyList(sub) {
         });
     });
     saveSession();
-    sessionStorage.setItem("subjectList", JSON.stringify(Sess["FixedSubject"]));
+    window.localStorage.setItem(
+        "subjectList",
+        JSON.stringify(Sess["FixedSubject"])
+    );
 }
 
 const joinhead = '<p class="card-text mb-0">';
@@ -210,7 +216,7 @@ function renderModal() {
 }
 
 async function renderPage() {
-    if (sessionStorage.getItem("theSession") === null) {
+    if (window.localStorage.getItem("theSession") === null) {
         document.getElementById("resultList").innerHTML =
             '<h2 class="text-center mt-5 pt-5">กลับไปกรอกข้อมูลวิชาก่อนนะ ^^</h2>';
         return;

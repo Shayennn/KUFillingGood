@@ -47,7 +47,7 @@ if (DEBUG) {
 
 function renderMain() {
     var ss = document.getElementById("subject_section");
-    var sess_sub = sessionStorage.getItem("subjectList");
+    var sess_sub = window.localStorage.getItem("subjectList");
     if (sess_sub !== null && ss !== null) {
         ss.value = JSON.parse(sess_sub).join("\n");
     }
@@ -79,13 +79,13 @@ async function btnAction() {
 function saveSession() {
     var dumpCanAdd = [...Sess["canAdd"]];
     Sess["canAdd"] = [];
-    sessionStorage.removeItem("theSession");
-    sessionStorage.setItem("theSession", JSON.stringify(Sess));
+    window.localStorage.removeItem("theSession");
+    window.localStorage.setItem("theSession", JSON.stringify(Sess));
     Sess["canAdd"] = dumpCanAdd;
 }
 
 function sessionFetcher() {
-    Sess = JSON.parse(sessionStorage.getItem("theSession"));
+    Sess = JSON.parse(window.localStorage.getItem("theSession"));
 }
 
 async function loadSubject() {
@@ -128,7 +128,7 @@ function parseSubject() {
         }
     });
     textbox.value = res.sort().join("\n");
-    sessionStorage.setItem("subjectList", JSON.stringify(res));
+    window.localStorage.setItem("subjectList", JSON.stringify(res));
     Sess["FixedSubject"] = res;
     return res;
 }
