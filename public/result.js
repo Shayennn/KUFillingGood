@@ -187,6 +187,11 @@ function renderModal() {
         code.innerHTML = sub.subjectCode;
         code.innerHTML += "<br>";
         code.innerHTML += "Sec: " + sub.sectionCode;
+        if (sub.totalRegistered == sub.totalSeat) {
+            code.innerHTML += "<br>";
+            code.innerHTML +=
+                '<span class="badge badge-pill badge-danger">ที่นั่งเต็ม</span>';
+        }
         var info = tr.appendChild(document.createElement("td"));
         info.innerHTML = sub.subjectNameTh;
         info.innerHTML += "<br>";
