@@ -104,6 +104,11 @@ function renderSubjectCard(sub, id) {
     thisCard = thisCard.replace("{{ENName}}", sub.subjectNameEn);
     thisCard = thisCard.replace("{{Time}}", timeTxt);
     thisCard = thisCard.replace("{{Place}}", sub.roomNameTh);
+    let color = "primary";
+    if (sub.totalRegistered >= 0.8 * sub.totalSeat) color = "warning";
+    if (sub.totalRegistered == sub.totalSeat) color = "danger";
+    thisCard = thisCard.replace("{{CardColor}}", color);
+    thisCard = thisCard.replace("{{TotalRegistered}}", sub.totalRegistered);
     thisCard = thisCard.replace("{{TotalSeat}}", sub.totalSeat);
     thisCard = thisCard.replace("{{Teacher}}", sub.teacherName);
     thisCard = thisCard.replace("{{Allow}}", sub.property);

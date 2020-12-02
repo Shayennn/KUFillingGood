@@ -71,9 +71,11 @@
                         class="float-lg-right seatBox"
                         style="display: inline-block"
                     >
-                        <div class="card border-primary text-center mt-3">
+                        <div class="card border-{{CardColor}} text-center mt-3">
                             <div class="card-body font-weight-bold">
-                                <p class="card-text">{{TotalSeat}}</p>
+                                <p class="card-text">
+                                    {{TotalRegistered}}/{{TotalSeat}}
+                                </p>
                                 <p class="card-text">จำนวนรับ</p>
                             </div>
                         </div>
