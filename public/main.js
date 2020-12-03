@@ -46,6 +46,7 @@ if (DEBUG) {
 }
 
 function renderMain() {
+    document.getElementById("maxCredit").value = Sess["creditLimit"];
     var ss = document.getElementById("subject_section");
     var sess_sub = window.localStorage.getItem("subjectList");
     if (sess_sub !== null && ss !== null) {
@@ -60,6 +61,7 @@ async function btnAction() {
     btn.classList.add("disabled");
     btn.setAttribute("disabled", "disabled");
     btn.innerText = "กำลังตรวจสอบ";
+    Sess["creditLimit"] = parseInt(document.getElementById("maxCredit").value);
     await parseSubject();
     await loadBuu();
     await loadSubject()
