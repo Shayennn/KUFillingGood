@@ -60,7 +60,8 @@ if (DEBUG) {
 
 function renderMain() {
     initStorage();
-    document.getElementById("maxCredit").value = Sess["creditLimit"];
+    if (document.getElementById("maxCredit") !== null)
+        document.getElementById("maxCredit").value = Sess["creditLimit"];
     var ss = document.getElementById("subject_section");
     var sess_sub = storageEngine.getItem("subjectList");
     if (sess_sub !== null && ss !== null) {
