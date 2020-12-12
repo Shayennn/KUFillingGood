@@ -1,6 +1,8 @@
 const SubjectAPI =
     "https://kufillinggood.appspot.com.storage.googleapis.com/SubjectOpen.json";
 
+var subjectData = [];
+
 var Sess = {
     subjectData: [],
     BuuData: [],
@@ -97,9 +99,12 @@ function saveSession() {
     initStorage();
     var dumpCanAdd = [...Sess["canAdd"]];
     Sess["canAdd"] = [];
+    var dumpSubjectData = [...Sess["subjectData"]["results"]];
+    Sess["subjectData"]["results"] = [];
     storageEngine.removeItem("theSession");
     storageEngine.setItem("theSession", JSON.stringify(Sess));
     Sess["canAdd"] = dumpCanAdd;
+    Sess["subjectData"]["results"] = dumpSubjectData;
 }
 
 function sessionFetcher() {
@@ -108,16 +113,27 @@ function sessionFetcher() {
 }
 
 async function loadSubject() {
-    await $.getJSON(SubjectAPI, function (data) {
-        Sess["subjectData"] = data;
-    });
+    if (
+        subjectData["results"] === undefined ||
+        subjectData["results"].length === 0
+    ) {
+        await $.getJSON(SubjectAPI, function (data) {
+            Sess["subjectData"] = data;
+            subjectData = data;
+        });
+    } else {
+        console.log("using old data");
+        Sess["subjectData"] = subjectData;
+    }
     return Sess["subjectData"];
 }
 
 async function loadSubjectCard() {
-    await $.get("subjectCard.html", function (data) {
-        templateSubjectCard = data;
-    });
+    if (templateSubjectCard == "") {
+        await $.get("subjectCard.html", function (data) {
+            templateSubjectCard = data;
+        });
+    }
     return templateSubjectCard;
 }
 

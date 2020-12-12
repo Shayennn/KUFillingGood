@@ -222,6 +222,7 @@ async function renderPage() {
         '<h2 class="text-center mt-5 pt-5">Loading...</h2>';
     sessionFetcher();
     loadFilter();
+    await loadSubject();
     await loadSubjectCard();
     if (Sess["canAdd"].length == 0)
         findAllCanReg(
