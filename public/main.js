@@ -23,6 +23,19 @@ var Sess = {
     },
 };
 
+var storageEngine;
+
+function initStorage() {
+    if (typeof Storage !== "undefined") {
+        storageEngine = window.localStorage;
+    } else {
+        console.log(
+            "Browser is not support localStorage. Using sessionStorage."
+        );
+        storageEngine = window.sessionStorage;
+    }
+}
+
 /**
  * StdType 1 = Normal, 2 = Extra, 3 = Inter
  * **/
@@ -46,9 +59,10 @@ if (DEBUG) {
 }
 
 function renderMain() {
+    initStorage();
     document.getElementById("maxCredit").value = Sess["creditLimit"];
     var ss = document.getElementById("subject_section");
-    var sess_sub = window.localStorage.getItem("subjectList");
+    var sess_sub = storageEngine.getItem("subjectList");
     if (sess_sub !== null && ss !== null) {
         ss.value = JSON.parse(sess_sub).join("\n");
     }
@@ -79,15 +93,17 @@ async function btnAction() {
 }
 
 function saveSession() {
+    initStorage();
     var dumpCanAdd = [...Sess["canAdd"]];
     Sess["canAdd"] = [];
-    window.localStorage.removeItem("theSession");
-    window.localStorage.setItem("theSession", JSON.stringify(Sess));
+    storageEngine.removeItem("theSession");
+    storageEngine.setItem("theSession", JSON.stringify(Sess));
     Sess["canAdd"] = dumpCanAdd;
 }
 
 function sessionFetcher() {
-    Sess = JSON.parse(window.localStorage.getItem("theSession"));
+    initStorage();
+    Sess = JSON.parse(storageEngine.getItem("theSession"));
 }
 
 async function loadSubject() {
@@ -112,6 +128,7 @@ async function loadBuu() {
 }
 
 function parseSubject() {
+    initStorage();
     var textbox = document.getElementById("subject_section");
     if (textbox.value == "") return [];
     var res = textbox.value.replace("\r", "").split("\n");
@@ -130,7 +147,7 @@ function parseSubject() {
         }
     });
     textbox.value = res.sort().join("\n");
-    window.localStorage.setItem("subjectList", JSON.stringify(res));
+    storageEngine.setItem("subjectList", JSON.stringify(res));
     Sess["FixedSubject"] = res;
     return res;
 }

@@ -14,6 +14,7 @@ function subjectRemoveBtn(btn) {
 }
 
 function addSubjectToMyList(sub) {
+    initStorage();
     Sess["FixedSubject"].push(sub.subjectCode + ":" + sub.sectionCode);
     Sess["FixedSubjectInfo"].push(sub);
     Sess["currentCredit"] += sub.maxCredit;
@@ -33,13 +34,11 @@ function addSubjectToMyList(sub) {
         );
     });
     saveSession();
-    window.localStorage.setItem(
-        "subjectList",
-        JSON.stringify(Sess["FixedSubject"])
-    );
+    storageEngine.setItem("subjectList", JSON.stringify(Sess["FixedSubject"]));
 }
 
 function removeSubjectFromMyList(sub) {
+    initStorage();
     Sess["FixedSubject"].splice(
         Sess["FixedSubject"].indexOf(sub.subjectCode + ":" + sub.sectionCode),
         1
@@ -65,10 +64,7 @@ function removeSubjectFromMyList(sub) {
         });
     });
     saveSession();
-    window.localStorage.setItem(
-        "subjectList",
-        JSON.stringify(Sess["FixedSubject"])
-    );
+    storageEngine.setItem("subjectList", JSON.stringify(Sess["FixedSubject"]));
 }
 
 const joinhead = '<p class="card-text mb-0">';
@@ -216,7 +212,8 @@ function renderModal() {
 }
 
 async function renderPage() {
-    if (window.localStorage.getItem("theSession") === null) {
+    initStorage();
+    if (storageEngine.getItem("theSession") === null) {
         document.getElementById("resultList").innerHTML =
             '<h2 class="text-center mt-5 pt-5">กลับไปกรอกข้อมูลวิชาก่อนนะ ^^</h2>';
         return;
