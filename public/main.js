@@ -187,7 +187,7 @@ function findSubjectData() {
         // console.log(subjectid);
         var a = FixedSubject.indexOf(subjectid);
         if (a != -1) {
-            FixedSubject.splice(a, 1);
+            // FixedSubject.splice(a, 1);
             Sess["FixedSubjectInfo"].push(sub);
             newFixed.push(
                 subjectid +
@@ -236,7 +236,7 @@ function findSubjectData() {
             cancelButtonText: "กลับไปตรวจสอบข้อมูล",
             showCancelButton: true,
         });
-    } else if (newFixed.length == Sess["FixedSubject"].length) {
+    } else if (newFixed.length >= Sess["FixedSubject"].length) {
         Swal.fire({
             // timer: 2000,
             title: "พบข้อมูล " + newFixed.length + " หมู่เรียน",
