@@ -71,6 +71,8 @@ exports.reloadCache = functions.https.onRequest(async (request, response) => {
         params: {
             stdStatusCode: 17001,
             campusCode: "B",
+            facultyCode: "E",
+            majorCode: "E09",
             userType: 1,
         },
         headers: {
