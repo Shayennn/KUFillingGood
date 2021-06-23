@@ -117,10 +117,15 @@ async function loadSubject() {
         subjectData["results"] === undefined ||
         subjectData["results"].length === 0
     ) {
-        await $.getJSON(SubjectAPI, function (data) {
-            Sess["subjectData"] = data;
-            subjectData = data;
-        });
+        await $.getJSON(
+            SubjectAPI +
+                "?" +
+                Math.round(Date.now() / 1000 / 60 / 5).toString(),
+            function (data) {
+                Sess["subjectData"] = data;
+                subjectData = data;
+            }
+        );
     } else {
         console.log("using old data");
         Sess["subjectData"] = subjectData;
